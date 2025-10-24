@@ -14,5 +14,5 @@ void setup() {
     // Graph plotting
     plotGridLines();
     plotAxes();
-    plotXAxis("Test");
+    plotAxisTitles("Test", "Also a Test");
 }

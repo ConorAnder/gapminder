@@ -14,9 +14,20 @@ void plotAxes() {
     line(border, border, border, width - border);
 }
 
-void plotXAxis(String title) {
-    textAlign(CENTER);
+void plotAxisTitles(String title_1, String title_2) {
+    textAlign(CENTER, BOTTOM);
     textSize(20);
     fill(black);
-    text(title, width / 2, height - (border / 2));
+    
+    // X axis
+    text(title_1, width / 2, height - (border / 2));
+
+    // Y axis
+    int x = border / 2;
+    int y = height / 2;
+    pushMatrix();
+    translate(x, y);
+    rotate(-HALF_PI);
+    text(title_2, 0, 0);
+    popMatrix();
 }
