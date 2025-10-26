@@ -9,10 +9,18 @@ void setup() {
 
     // Insert data into a table
     Table data = loadTable("gapminder.csv", "header");
+    // Gather data
+    ArrayList<dataPoint> data_points = getData(data);
     print("There are " + str(data.getRowCount()) + " rows in the table\n");
+
+    data_points.sort((a, b) -> Float.compare(b.gdp, a.gdp));
+    print("The highest gdp is " + str(data_points.get(0).gdp) + " and the lowest is " + data_points.get(data.getRowCount() - 1).gdp + "\n");
 
     // Graph plotting
     plotGridLines();
     plotAxes();
-    plotAxisTitles("Test", "Also a Test");
+    plotAxisMarkers(data_points);
+
+    // Objectives
+    plotA1(data_points);
 }

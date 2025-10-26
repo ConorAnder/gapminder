@@ -31,3 +31,38 @@ void plotAxisTitles(String title_1, String title_2) {
     text(title_2, 0, 0);
     popMatrix();
 }
+
+void plotChartTitle(String title) {
+    textAlign(CENTER, TOP);
+    textSize(30);
+    fill(black);
+    text(title, width / 2, border / 2);
+}
+
+void plotAxisMarkers(ArrayList<dataPoint> data_points) {
+    // Get mins and maxes for mapping
+    data_points.sort((a, b) -> Float.compare(b.gdp, a.gdp));
+    float max_gdp = (float)Math.log10(data_points.get(0).gdp), min_gdp = (float)Math.log10(data_points.get(data_points.size() - 1).gdp);
+
+    data_points.sort((a, b) -> Float.compare(b.life_expectancy, a.life_expectancy));
+    float max_le = data_points.get(0).life_expectancy, min_le = data_points.get(data_points.size() - 1).life_expectancy;
+
+    // Plot
+    textAlign(CENTER, BOTTOM);
+    textSize(11);
+    fill(black);
+    for (float x = border + (width - 2 * border) / 10.0; x <= width - border; x += (width - 2 * border) / 10.0) {
+        float i =  (float)Math.pow(10, map(x, 1.5 * border, width - 1.5 * border, min_gdp, max_gdp));
+        text(str(round(i / 100.0) * 100), x, height - border + 15);
+    }
+
+    for (float y = height - border - (height - 2 * border) / 10.0; y >= border; y -= (height - 2 * border) / 10.0) {
+        int i =  (int)map(y, height - 1.5 * border, 1.5 * border, min_le, max_le);
+        int x = border - 15;
+        pushMatrix();
+        translate(x, y);
+        rotate(-HALF_PI);
+        text(str(i), 0, 0);
+        popMatrix();
+    }
+}
