@@ -2,6 +2,8 @@ color grid_line_colour = color(120, 120, 120);
 color black = color(0, 0, 0);
 color transparent = color(0, 100, 200, 150);
 color green = color(64, 197, 117, 150);
+color low_pop = color(255, 0, 0, 150);
+color hi_pop = color(0, 255, 0, 150);
 
 PShape ireland;
 
@@ -30,5 +32,5 @@ void setup() {
     plotAxisMarkers(data_points);
 
     // Objectives
-    plotA1(data_points);
+    plotA3(data_points);
 }

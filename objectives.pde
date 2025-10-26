@@ -84,3 +84,44 @@ void plotA2(ArrayList<dataPoint> data_points) {
     plotAxisTitles("GDP", "Life Expectancy");
     plotChartTitle("Chart A2 - Population as Saturation");
 }
+
+
+void plotA3(ArrayList<dataPoint> data_points) {
+    // Get mins and maxes for mapping
+    data_points.sort((a, b) -> Float.compare(b.gdp, a.gdp));
+    float max_gdp = (float)Math.log10(data_points.get(0).gdp), min_gdp = (float)Math.log10(data_points.get(data_points.size() - 1).gdp);
+
+    data_points.sort((a, b) -> Float.compare(b.life_expectancy, a.life_expectancy));
+    float max_le = data_points.get(0).life_expectancy, min_le = data_points.get(data_points.size() - 1).life_expectancy;
+    
+    data_points.sort((a, b) -> Float.compare(b.population, a.population));
+    float max_pop = data_points.get(0).population, min_pop = data_points.get(data_points.size() - 1).population;
+
+    // Plot
+    for (dataPoint dp : data_points) {
+        if (dp.year == 2002) {
+            float x = map((float)Math.log10(dp.gdp), min_gdp, max_gdp, 1.5 * border, width - 1.5 * border);
+            float y = map(dp.life_expectancy, min_le, max_le, height -  1.5 * border, 1.5 * border);
+            float colour = map(dp.population, min_pop, max_pop, 0, 1);
+            
+            if (dp.country.contains("Ireland")) {
+                stroke(black);
+                fill(lerpColor(low_pop, hi_pop, colour));
+                strokeWeight(20);
+                pushMatrix();
+                translate(x, y);
+                scale(0.01);
+                shape(ireland, -ireland.width/2, -ireland.height/2);
+                popMatrix();
+            }
+            else {
+                fill(lerpColor(low_pop, hi_pop, colour));
+                noStroke();
+                ellipse(x, y, 10, 10);
+            }
+        }
+    }
+
+    plotAxisTitles("GDP", "Life Expectancy");
+    plotChartTitle("Chart A2 - Population as Colour Tone");
+}
