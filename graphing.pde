@@ -47,7 +47,7 @@ void plotAxisMarkers(ArrayList<dataPoint> data_points) {
     data_points.sort((a, b) -> Float.compare(b.life_expectancy, a.life_expectancy));
     float max_le = data_points.get(0).life_expectancy, min_le = data_points.get(data_points.size() - 1).life_expectancy;
 
-    // Plot
+    // Plot X Axis
     textAlign(CENTER, BOTTOM);
     textSize(11);
     fill(black);
@@ -56,6 +56,7 @@ void plotAxisMarkers(ArrayList<dataPoint> data_points) {
         text(str(round(i / 100.0) * 100), x, height - border + 15);
     }
 
+    // Plot Y Axis
     for (float y = height - border - (height - 2 * border) / 10.0; y >= border; y -= (height - 2 * border) / 10.0) {
         int i =  (int)map(y, height - 1.5 * border, 1.5 * border, min_le, max_le);
         int x = border - 15;
