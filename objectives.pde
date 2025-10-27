@@ -1,4 +1,5 @@
 void plotA1(ArrayList<dataPoint> data_points) {
+    plotGridLines(10);
     // Get mins and maxes for mapping
     data_points.sort((a, b) -> Float.compare(b.gdp, a.gdp));
     float max_gdp = (float)Math.log10(data_points.get(0).gdp), min_gdp = (float)Math.log10(data_points.get(data_points.size() - 1).gdp);
@@ -42,10 +43,12 @@ void plotA1(ArrayList<dataPoint> data_points) {
         popMatrix();
     }
     plotAxisTitles("GDP", "Life Expectancy");
+    plotAxisMarkersA(data_points);
     plotChartTitle("Chart A1 - Population as Size");
 }
 
 void plotA2(ArrayList<dataPoint> data_points) {
+    plotGridLines(10);
     // Get mins and maxes for mapping
     data_points.sort((a, b) -> Float.compare(b.gdp, a.gdp));
     float max_gdp = (float)Math.log10(data_points.get(0).gdp), min_gdp = (float)Math.log10(data_points.get(data_points.size() - 1).gdp);
@@ -82,11 +85,13 @@ void plotA2(ArrayList<dataPoint> data_points) {
     }
 
     plotAxisTitles("GDP", "Life Expectancy");
+    plotAxisMarkersA(data_points);
     plotChartTitle("Chart A2 - Population as Saturation");
 }
 
 
 void plotA3(ArrayList<dataPoint> data_points) {
+    plotGridLines(10);
     // Get mins and maxes for mapping
     data_points.sort((a, b) -> Float.compare(b.gdp, a.gdp));
     float max_gdp = (float)Math.log10(data_points.get(0).gdp), min_gdp = (float)Math.log10(data_points.get(data_points.size() - 1).gdp);
@@ -123,5 +128,69 @@ void plotA3(ArrayList<dataPoint> data_points) {
     }
 
     plotAxisTitles("GDP", "Life Expectancy");
-    plotChartTitle("Chart A2 - Population as Colour Tone");
+    plotAxisMarkersA(data_points);
+    plotChartTitle("Chart A3 - Population as Colour Tone");
+}
+
+void plotB1(ArrayList<dataPoint> data_points) {
+    plotGridLines(13);
+
+    // Get min and max values
+    data_points.sort((a, b) -> Float.compare(b.life_expectancy, a.life_expectancy));
+    float max_le = data_points.get(0).life_expectancy, min_le = data_points.get(data_points.size() - 1).life_expectancy;
+
+    int max_y = 2007, min_y = 1952;
+
+    // Plot continent and Ireland points
+    String[] continents = {"Asia", "Europe", "Africa", "Americas", "Oceania", "Ireland"};
+    ArrayList<continentObj> continent_data = new ArrayList<continentObj>();
+    for (String continent : continents) {
+        for (int y = 1952; y <= 2007; y += 5) {
+            // Differentiate between Ireland and continents
+            float avg_le;
+            if (continent.equals("Ireland")) {
+                avg_le = getAvgLEPYIreland(data_points, y);
+            }
+            else 
+                avg_le = getAverageLEPerYear(data_points, y, continent);
+
+            // Save points for lines later
+            continent_data.add(new continentObj(continent, y, avg_le));
+
+            // Map points to graph
+            float X = map(y, min_y, max_y, 1.5 * border, width - 1.5 * border);
+            float Y = map(avg_le, min_le, max_le, height - 1.5 * border, 1.5 * border);
+
+            // Choosing colour
+            fill(getContinentColour(continent));
+            ellipse(X, Y, 10, 10);
+        }
+    }
+
+    // Plot lines
+    strokeWeight(5);
+    for (String continent : continents) {
+        // Group points by continent / Ireland
+        ArrayList<continentObj> points = new ArrayList<continentObj>();
+        for (continentObj point : continent_data) {
+            if (point.continent.equals(continent)) {
+                points.add(point);
+            }
+        }
+
+        for (int i = 0; i < points.size() - 1; i++) {
+            // Map points to graph
+            float X_1 = map(points.get(i).year, min_y, max_y, 1.5 * border, width - 1.5 * border);
+            float Y_1 = map(points.get(i).life_expectancy, min_le, max_le, height - 1.5 * border, 1.5 * border);
+            float X_2 = map(points.get(i + 1).year, min_y, max_y, 1.5 * border, width - 1.5 * border);
+            float Y_2 = map(points.get(i + 1).life_expectancy, min_le, max_le, height - 1.5 * border, 1.5 * border);
+
+            stroke(getContinentColour(continent));
+            line(X_1, Y_1, X_2, Y_2);
+        }
+    }
+
+    plotAxisTitles("Year", "Life Expectancy");
+    plotAxisMarkersB(data_points, 13);
+    plotChartTitle("Chart B1");
 }

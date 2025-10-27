@@ -15,3 +15,15 @@ class dataPoint {
         gdp = g;
     }
 }
+
+class continentObj {
+    String continent;
+    int year;
+    float life_expectancy;
+
+    continentObj(String cont, int y, float le) {
+        continent = cont;
+        year = y;
+        life_expectancy = le;
+    }
+}

@@ -28,3 +28,52 @@ ArrayList<dataPoint> getData(Table data) {
 
     return dps;
 }
+
+float getAverageLEPerYear(ArrayList<dataPoint> data_points, int year, String continent) {
+  double sum = 0;
+  int i = 0;
+  for (dataPoint dp : data_points) {
+    if (dp.continent.equals(continent) && dp.year == year) {
+      sum += dp.life_expectancy;
+      i++;
+    }
+  }
+  return (float)(sum / i);
+}
+
+float getAvgLEPYIreland(ArrayList<dataPoint> data_points, int year) {
+  double sum = 0;
+  int i = 0;
+  for (dataPoint dp : data_points) {
+    if (dp.country.equals("Ireland") && dp.year == year) {
+      sum += dp.life_expectancy;
+      i++;
+    }
+  }
+  return (float)(sum / i);
+}
+
+color getContinentColour(String continent) {
+  switch(continent) {
+    case "Asia":
+    return asia_colour;
+
+    case "Europe":
+    return europe_colour;
+
+    case "Africa":
+    return africa_colour;
+
+    case "Americas":
+    return americas_colour;
+
+    case "Oceania":
+    return oceania_colour;
+
+    case "Ireland":
+    return ireland_colour;
+
+    default:
+    return black;
+  }
+}

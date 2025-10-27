@@ -1,9 +1,10 @@
-void plotGridLines() {
+void plotGridLines(int divisions) {
     strokeWeight(1);
     stroke(grid_line_colour);
-    for (int i = border; i <= width - border; i += (width - 2 * border) / 10.0) {
-        line(border, i, height - border, i);
-        line(i, border, i, width - border);
+    float space = (width - 2 * border) / (float)divisions;
+    for (int i = 0; i <= divisions; i++) {
+        line(border, border + i * space, height - border, border + i * space);
+        line(border + i * space, border, border + i * space, width - border);
     }
 }
 
@@ -39,7 +40,7 @@ void plotChartTitle(String title) {
     text(title, width / 2, border / 2);
 }
 
-void plotAxisMarkers(ArrayList<dataPoint> data_points) {
+void plotAxisMarkersA(ArrayList<dataPoint> data_points) {
     // Get mins and maxes for mapping
     data_points.sort((a, b) -> Float.compare(b.gdp, a.gdp));
     float max_gdp = (float)Math.log10(data_points.get(0).gdp), min_gdp = (float)Math.log10(data_points.get(data_points.size() - 1).gdp);
@@ -62,6 +63,32 @@ void plotAxisMarkers(ArrayList<dataPoint> data_points) {
         int x = border - 15;
         pushMatrix();
         translate(x, y);
+        rotate(-HALF_PI);
+        text(str(i), 0, 0);
+        popMatrix();
+    }
+}
+
+void plotAxisMarkersB(ArrayList<dataPoint> data_points, int divisions) {
+    // Get mins and maxes for mapping
+    data_points.sort((a, b) -> Float.compare(b.life_expectancy, a.life_expectancy));
+    float max_le = data_points.get(0).life_expectancy, min_le = data_points.get(data_points.size() - 1).life_expectancy;
+
+    // Plot X Axis
+    textAlign(CENTER, BOTTOM);
+    textSize(11);
+    fill(black);
+    float space = (width - 2 * border) / (float)divisions;
+    for (int i = 1; i <= divisions - 1; i++) {
+        text(str(1952 + (i - 1) * 5), border + i * space, height - border + 15);
+    }
+
+    // Plot Y Axis
+    for (int j = 1; j <= divisions - 1; j++) {
+        int i =  (int)map(height - border - j * space, height - 1.5 * border, 1.5 * border, min_le, max_le);
+        int x = border - 15;
+        pushMatrix();
+        translate(x, height - border - j * space);
         rotate(-HALF_PI);
         text(str(i), 0, 0);
         popMatrix();
