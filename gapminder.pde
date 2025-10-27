@@ -35,9 +35,9 @@ void setup() {
     data_points.sort((a, b) -> Float.compare(b.gdp, a.gdp));
     print("The highest gdp is " + str(data_points.get(0).gdp) + " and the lowest is " + data_points.get(data.getRowCount() - 1).gdp + "\n");
 
-    // Graph plotting
-    plotAxes();
-
     // Objectives
     plotB1(data_points);
+
+    // Graph plotting
+    plotAxes();
 }

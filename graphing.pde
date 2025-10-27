@@ -94,3 +94,30 @@ void plotAxisMarkersB(ArrayList<dataPoint> data_points, int divisions) {
         popMatrix();
     }
 }
+
+void plotB1legend() {
+    float left = width - border -  4 * (width - 2 * border) / 13;
+    float right = width - border;
+    float bottom = height - border;
+    float top = height - border - 5 * (width - 2 * border) / 13;
+
+    noStroke();
+    fill(255, 255, 255);
+    strokeWeight(1);
+    rectMode(CORNERS);
+    rect(left, bottom, right, top);
+
+    textSize(15);
+    textAlign(LEFT, TOP);
+    fill(black);
+    strokeWeight(15);
+    String[] continents = {"Asia", "Europe", "Africa", "Americas", "Oceania", "Ireland"};
+    for (int i = 1; i < 7; i++) {
+        float y = map(i, 0, 7, bottom, top);
+        float x = width - border - 5 * (right - left) / 6;
+        text(continents[i - 1], x, y);
+        x += 3 * (right - left) / 6;
+        stroke(getContinentColour(continents[i - 1]));
+        line(x, y + 7, x + 20, y + 7);
+    }
+}

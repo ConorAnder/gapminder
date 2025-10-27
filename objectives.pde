@@ -193,4 +193,5 @@ void plotB1(ArrayList<dataPoint> data_points) {
     plotAxisTitles("Year", "Life Expectancy");
     plotAxisMarkersB(data_points, 13);
     plotChartTitle("Chart B1");
+    plotB1legend();
 }
