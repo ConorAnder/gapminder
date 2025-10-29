@@ -6,12 +6,12 @@ color green = color(64, 197, 117, 150);
 color low_pop = color(255, 0, 0, 150);
 color hi_pop = color(0, 255, 0, 150);
 
-color asia_colour = color(173, 216, 230, 150);
-color europe_colour = color(255, 182, 193, 150);
-color africa_colour = color(255, 255, 204, 150);
-color americas_colour = color(200, 180, 255, 150);
-color oceania_colour = color(255, 160, 160, 150);
-color ireland_colour = color(180, 230, 200, 150);
+color asia_colour = color(173, 216, 230);
+color europe_colour = color(255, 255, 204);
+color africa_colour = color(255, 182, 193);
+color americas_colour = color(200, 180, 255);
+color oceania_colour = color(255, 160, 160);
+color ireland_colour = color(180, 230, 200);
 
 
 PShape ireland;
@@ -36,7 +36,7 @@ void setup() {
     print("The highest gdp is " + str(data_points.get(0).gdp) + " and the lowest is " + data_points.get(data.getRowCount() - 1).gdp + "\n");
 
     // Objectives
-    plotB1(data_points);
+    plotB2(data_points);
 
     // Graph plotting
     plotAxes();

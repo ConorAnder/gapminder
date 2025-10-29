@@ -121,3 +121,42 @@ void plotB1legend() {
         line(x, y + 7, x + 20, y + 7);
     }
 }
+
+void plotContinentShape(float x, float y, String continent) {
+    int size = 15;
+    switch(continent) {
+        case "Asia":
+        rectMode(CENTER);
+        rect(x, y, size, size);
+        break;
+
+        case "Europe":
+        cross(x, y, size);
+        break;
+
+        case "Africa":
+        plus(x, y, size);
+        break;
+
+        case "Americas":
+        target(x, y, size);
+        break;
+
+        case "Oceania":
+        rhombus(x, y, size);
+        ellipse(x, y, size, size);
+        break;
+
+        case "Ireland":
+        pushMatrix();
+        translate(x, y);
+        scale(0.01);
+        shape(ireland, -ireland.width/2, -ireland.height/2);
+        popMatrix();
+        break;
+
+        default:
+        ellipse(x, y, size, size);
+        break;
+    }
+}

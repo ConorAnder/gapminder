@@ -55,25 +55,7 @@ float getAvgLEPYIreland(ArrayList<dataPoint> data_points, int year) {
 
 color getContinentColour(String continent) {
   switch(continent) {
-    case "Asia":
-    return asia_colour;
-
-    case "Europe":
-    return europe_colour;
-
-    case "Africa":
-    return africa_colour;
-
-    case "Americas":
-    return americas_colour;
-
-    case "Oceania":
-    return oceania_colour;
-
-    case "Ireland":
-    return ireland_colour;
-
-    default:
-    return black;
+     
   }
 }
+
