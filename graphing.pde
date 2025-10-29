@@ -144,7 +144,7 @@ void plotB2legend() {
         float x = width - border - 5 * (right - left) / 6;
         text(continents[i - 1], x, y);
         x += 3 * (right - left) / 6;
-        plotContinentShape(x, y + 8, continents[i - 1]);
+        plotContinentShape(x, y + 8, continents[i - 1], 15, black);
     }
 }
 
@@ -175,31 +175,70 @@ void plotB3legend() {
     }
 }
 
-void plotContinentShape(float x, float y, String continent) {
-    int size = 15;
+void plotClegend() {
+    float left = width - border -  6 * (width - 2 * border) / 13;
+    float right = width - border;
+    float bottom = height - border;
+    float top = height - border - 3 * (width - 2 * border) / 13;
+
+    noStroke();
+    fill(255, 255, 255);
+    strokeWeight(1);
+    rectMode(CORNERS);
+    rect(left, bottom, right, top);
+
+    textSize(15);
+    textAlign(LEFT, TOP);
+    fill(black);
+    strokeWeight(15);
+    String[] continents = {"Ireland", "Europe", "Oceania", "Americas", "Asia", "Africa"};
+    for (int i = 1; i < 7; i++) {
+        float y = map(i, 0, 7, bottom, top);
+        float x = width - border - 11 * (right - left) / 12;
+        text(continents[i - 1], x, y);
+        x += 2 * (right - left) / 6;
+        plotContinentShape(x, y + 8, continents[i - 1], 15, black);
+    }
+
+    String[] gdps = {"Low GDP", "High GDP"};
+    for (int i = 1; i < 3; i++) {
+        float y = map(i, 0, 3, bottom, top);
+        float x = width - border - 6 * (right - left) / 12;
+        text(gdps[i - 1], x, y);
+        x += 2 * (right - left) / 6;
+        if (i == 1) stroke(220, 20, 60);
+        else stroke(34, 139, 34);
+        line(x + 7, y + 5, x + 17, y + 5);
+    }
+}
+
+void plotContinentShape(float x, float y, String continent, int size, color colour) {
     switch(continent) {
         case "Asia":
         rectMode(CENTER);
+        noFill();
+        stroke(colour);
         rect(x, y, size, size);
         break;
 
         case "Europe":
-        cross(x, y, size);
+        cross(x, y, size, colour);
         break;
 
         case "Africa":
-        plus(x, y, size);
+        plus(x, y, size, colour);
         break;
 
         case "Americas":
-        target(x, y, size);
+        target(x, y, size, colour);
         break;
 
         case "Oceania":
-        rhombus(int(x), int(y), size);
+        rhombus(int(x), int(y), size, colour);
         break;
 
         case "Ireland":
+        fill(colour);
         pushMatrix();
         translate(x, y);
         scale(0.015);

@@ -89,3 +89,11 @@ int getContinentSize(String continent) {
     default: return 30;
   }
 }
+
+color getGDPColour(dataPoint dp, float q1, float q2, float q3) {
+  if (dp.gdp > q3) return color(34, 139, 34);       
+  else if (dp.gdp > q2) return color(255, 215, 0);  
+  else if (dp.gdp > q1) return color(255, 140, 0);  
+  else return color(220, 20, 60);
+}
+

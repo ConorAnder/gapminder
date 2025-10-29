@@ -36,7 +36,7 @@ void setup() {
     print("The highest gdp is " + str(data_points.get(0).gdp) + " and the lowest is " + data_points.get(data.getRowCount() - 1).gdp + "\n");
 
     // Objectives
-    plotB3(data_points);
+    plotC(data_points);
 
     // Graph plotting
     plotAxes();
