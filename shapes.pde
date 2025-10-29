@@ -25,6 +25,7 @@ void cross(float x, float y, int size) {
 }
 
 void rhombus(float x, float y, int size) {
+    stroke(black);
     strokeWeight(size / 4);
     noFill();
     beginShape();

@@ -122,6 +122,59 @@ void plotB1legend() {
     }
 }
 
+void plotB2legend() {
+    float left = width - border -  4 * (width - 2 * border) / 13;
+    float right = width - border;
+    float bottom = height - border;
+    float top = height - border - 5 * (width - 2 * border) / 13;
+
+    noStroke();
+    fill(255, 255, 255);
+    strokeWeight(1);
+    rectMode(CORNERS);
+    rect(left, bottom, right, top);
+
+    textSize(15);
+    textAlign(LEFT, TOP);
+    fill(black);
+    strokeWeight(15);
+    String[] continents = {"Asia", "Europe", "Africa", "Americas", "Oceania", "Ireland"};
+    for (int i = 1; i < 7; i++) {
+        float y = map(i, 0, 7, bottom, top);
+        float x = width - border - 5 * (right - left) / 6;
+        text(continents[i - 1], x, y);
+        x += 3 * (right - left) / 6;
+        plotContinentShape(x, y + 8, continents[i - 1]);
+    }
+}
+
+void plotB3legend() {
+    float left = width - border -  4 * (width - 2 * border) / 13;
+    float right = width - border;
+    float bottom = height - border;
+    float top = height - border - 5 * (width - 2 * border) / 13;
+
+    noStroke();
+    fill(255, 255, 255);
+    strokeWeight(1);
+    rectMode(CORNERS);
+    rect(left, bottom, right, top);
+
+    textSize(15);
+    textAlign(LEFT, TOP);
+    fill(black);
+    strokeWeight(15);
+    String[] continents = {"Ireland", "Europe", "Oceania", "Americas", "Asia", "Africa"};
+    for (int i = 1; i < 7; i++) {
+        float y = map(i, 0, 7, bottom, top);
+        float x = width - border - 5 * (right - left) / 6;
+        text(continents[i - 1], x, y);
+        x += 3 * (right - left) / 6;
+        int size = getContinentSize(continents[i - 1]);
+        ellipse(x, y + 7, size, size);
+    }
+}
+
 void plotContinentShape(float x, float y, String continent) {
     int size = 15;
     switch(continent) {
@@ -143,14 +196,13 @@ void plotContinentShape(float x, float y, String continent) {
         break;
 
         case "Oceania":
-        rhombus(x, y, size);
-        ellipse(x, y, size, size);
+        rhombus(int(x), int(y), size);
         break;
 
         case "Ireland":
         pushMatrix();
         translate(x, y);
-        scale(0.01);
+        scale(0.015);
         shape(ireland, -ireland.width/2, -ireland.height/2);
         popMatrix();
         break;
